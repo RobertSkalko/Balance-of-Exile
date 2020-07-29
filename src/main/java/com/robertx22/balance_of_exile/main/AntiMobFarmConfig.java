@@ -1,0 +1,14 @@
+package com.robertx22.balance_of_exile.main;
+
+import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.Comment;
+
+public class AntiMobFarmConfig {
+
+    @Comment("This is a simple measure that makes mob farming a lot tougher. In essence, it reduces loot drops every time you kill a mob in the same chunk. The loot drops are regenerated to default over time. This means mob farms would get to 0 loot quickly, while normal player killings would not be affected much or at all.")
+    public boolean ENABLE_ANTI_MOB_FARM = true;
+
+    @Comment("Decreases loot drops by 2% by default every time a mob is killed")
+    public float ON_MOB_KILLED_DECREASE_BY = 0.02F;
+    public float ON_MINUTE_PASSED_INCREASE_BY = 0.05F;
+
+}
