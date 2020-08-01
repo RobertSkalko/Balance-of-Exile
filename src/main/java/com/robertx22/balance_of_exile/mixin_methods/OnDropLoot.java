@@ -2,7 +2,7 @@ package com.robertx22.balance_of_exile.mixin_methods;
 
 import com.robertx22.balance_of_exile.anti_mob_farm.AntiMobFarmCap;
 import com.robertx22.balance_of_exile.main.BalanceConfig;
-import com.robertx22.library_of_exile.components.EntityInfoComponent;
+import com.robertx22.balance_of_exile.main.CommonInit;
 import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -18,11 +18,7 @@ public class OnDropLoot {
             return;
         }
 
-        float dmg = EntityInfoComponent.get(entity)
-            .getDamageStats()
-            .getTotalPlayerDamage();
-
-        if (dmg < entity.getMaxHealth() * BalanceConfig.get().MIN_PLAYER_DMG_TO_GET_LOOT) {
+        if (!CommonInit.playerDidEnoughDamageTo(entity)) {
             ci.cancel();
             return;
         }

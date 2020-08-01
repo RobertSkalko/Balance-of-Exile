@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "id": "balance_of_exile",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Balance of Exile",
   "description": "Mostly an anti mob farm mod, with support for my other mod: Age of Exile.",
   "authors": [
     "mcrobertx22"
   ],
   "contact": {
-    "homepage": "",
-    "sources": ""
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/balance-of-exile",
+    "sources": "https://github.com/RobertSkalko/Balance-of-Exile"
   },
   "license": "",
   "icon": "icon.png",

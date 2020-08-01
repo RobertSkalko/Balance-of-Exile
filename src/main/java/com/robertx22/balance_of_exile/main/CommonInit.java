@@ -67,10 +67,16 @@ public class CommonInit implements ModInitializer {
         System.out.println("Balance of Exile loaded.");
     }
 
-    static boolean playerDidEnoughDamageTo(LivingEntity entity) {
-        return EntityInfoComponent.get(entity)
+    public static boolean playerDidEnoughDamageTo(LivingEntity entity) {
+
+        float damageDealt = EntityInfoComponent.get(entity)
             .getDamageStats()
-            .getTotalPlayerDamage() < entity.getMaxHealth() * BalanceConfig.get().MIN_PLAYER_DMG_TO_GET_LOOT;
+            .getTotalPlayerDamage();
+
+        float damageNeeded = entity.getMaxHealth() * BalanceConfig.get().MIN_PLAYER_DMG_TO_GET_LOOT;
+
+        return damageDealt >= damageNeeded;
+
     }
 
 }
