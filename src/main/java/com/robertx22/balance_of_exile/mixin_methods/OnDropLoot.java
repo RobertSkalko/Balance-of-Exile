@@ -18,6 +18,11 @@ public class OnDropLoot {
             return;
         }
 
+        if (BalanceConfig.get().ANTI_MASS_kILLS.shouldPenalize(entity)) {
+            ci.cancel();
+            return;
+        }
+
         if (!CommonInit.playerDidEnoughDamageTo(entity)) {
             ci.cancel();
             return;
@@ -34,6 +39,7 @@ public class OnDropLoot {
                 return;
             }
         }
+
     }
 
 }
