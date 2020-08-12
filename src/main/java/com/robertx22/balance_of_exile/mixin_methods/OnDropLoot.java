@@ -18,11 +18,6 @@ public class OnDropLoot {
             return;
         }
 
-        if (BalanceConfig.get().ANTI_MASS_kILLS.shouldPenalize(entity)) {
-            ci.cancel();
-            return;
-        }
-
         if (!CommonInit.playerDidEnoughDamageTo(entity)) {
             ci.cancel();
             return;
@@ -31,7 +26,7 @@ public class OnDropLoot {
         if (BalanceConfig.get().ANTI_MOB_FARM.ENABLE_ANTI_MOB_FARM) {
             float multi = AntiMobFarmCap.get(entity.world)
                 .getDropMultiForMob(entity);
-            float chance = Math.abs((multi * 100) - 100);
+            float chance = Math.abs((multi * 100F) - 100F);
 
             if (chance > entity.getRandom()
                 .nextFloat() * 100) {

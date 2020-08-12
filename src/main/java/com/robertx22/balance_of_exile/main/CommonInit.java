@@ -1,6 +1,5 @@
 package com.robertx22.balance_of_exile.main;
 
-import com.robertx22.balance_of_exile.anti_mass_kills.OnMobDeathRecord;
 import com.robertx22.balance_of_exile.anti_mob_farm.AntiMobFarmCap;
 import com.robertx22.balance_of_exile.anti_mob_farm.OnMobDeath;
 import com.robertx22.balance_of_exile.anti_mob_farm.WorldTickMinute;
@@ -23,7 +22,6 @@ public class CommonInit implements ModInitializer {
         ServerTickEvents.END_WORLD_TICK.register(new WorldTickMinute());
 
         ExileEvents.MOB_DEATH.register(new OnMobDeath());
-        ExileEvents.MOB_DEATH.register(new OnMobDeathRecord());
 
         ExileEvents.SETUP_LOOT_CHANCE.register(new EventConsumer<ExileEvents.OnSetupLootChance>() {
             @Override
@@ -40,10 +38,6 @@ public class CommonInit implements ModInitializer {
                             float multi = AntiMobFarmCap.get(event.mobKilled.world)
                                 .getDropMultiForMob(event.mobKilled);
                             event.lootChance *= multi;
-                        }
-
-                        if (BalanceConfig.get().ANTI_MASS_kILLS.shouldPenalize(event.mobKilled)) {
-                            event.lootChance = 0;
                         }
 
                     }
@@ -67,9 +61,7 @@ public class CommonInit implements ModInitializer {
                                 .getDropMultiForMob(event.mobKilled);
                             event.exp *= multi;
                         }
-                        if (BalanceConfig.get().ANTI_MASS_kILLS.shouldPenalize(event.mobKilled)) {
-                            event.exp = 0;
-                        }
+
                     }
                 }
             }

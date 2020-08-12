@@ -42,7 +42,7 @@ dependencies {
     modApi "me.sargunvohra.mcmods:autoconfig1u:${auto_config_version}"
     modApi "io.github.prospector:modmenu:${mod_menu_version}"
 
-    compile files("Library-Of-Exile-1.16.1-1.0.0-dev.jar")
+    compile files("Library-Of-Exile-1.16.1-1.0.2-dev.jar")
 }
 
 processResources {
@@ -100,9 +100,7 @@ curseforge {
         relations {
             requiredDependency 'fabric-api'
             requiredDependency 'library-of-exile'
-            requiredDependency 'cardinal-components'
-            requiredDependency 'auto-config-updated-api'		
-			
+
             optionalDependency 'age-of-exile'
         }
         mainArtifact(remapJar)
