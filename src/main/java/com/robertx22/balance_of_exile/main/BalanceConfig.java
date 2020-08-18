@@ -37,7 +37,7 @@ public class BalanceConfig implements ConfigData {
     }
 
     public boolean isDimensionExcluded(World world) {
-        String dimId = world.getDimensionRegistryKey()
+        String dimId = world.getRegistryKey()
             .getValue()
             .toString();
         return BalanceConfig.get().DIMENSIONS_EXCLUDED.contains(dimId);
