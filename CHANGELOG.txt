@@ -1,6 +1,8 @@
 v.1.0.2
 
 1.16.2 port!
+Penalty works on mob spawn position now, instead of death position.
+Fix one shots not giving loot
 
 v.1.0.1
 

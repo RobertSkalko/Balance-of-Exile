@@ -41,7 +41,9 @@ dependencies {
 	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-chunk:${cardinal_version}"
 
    
-	modApi "io.github.prospector:modmenu:${mod_menu_version}"
+	modApi ("io.github.prospector:modmenu:${mod_menu_version}"){
+        exclude(group: "net.fabricmc.fabric-api")
+    }  
 	
 	modApi ("me.shedaniel.cloth:config-2:${config_api_version}"){
         exclude(group: "net.fabricmc.fabric-api")

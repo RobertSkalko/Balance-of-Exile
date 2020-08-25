@@ -76,10 +76,17 @@ public class CommonInit implements ModInitializer {
             .getDamageStats()
             .getTotalPlayerDamage();
 
-        float damageNeeded = entity.getMaxHealth() * BalanceConfig.get().MIN_PLAYER_DMG_TO_GET_LOOT;
+        if (damageDealt > 0) {
 
-        return damageDealt >= damageNeeded;
+            float damageNeeded = entity.getMaxHealth() * BalanceConfig.get().MIN_PLAYER_DMG_TO_GET_LOOT;
 
+            return damageDealt >= damageNeeded;
+        } else {// if its one shotted by player
+            return EntityInfoComponent.get(entity)
+                .getDamageStats()
+                .getEnviroOrMobDmg() <= entity.getMaxHealth() / 2F;
+
+        }
     }
 
 }
