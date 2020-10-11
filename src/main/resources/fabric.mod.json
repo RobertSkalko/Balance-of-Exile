@@ -25,7 +25,7 @@
   ],
 
   "depends": { 
-	"minecraft": "1.16.2",	
+	"minecraft": ">=1.16.2",	
     "fabricloader": ">=0.9.0",   
 	"fabric": ">=0.15.0",
 	"library_of_exile": ">=1.0.2",
