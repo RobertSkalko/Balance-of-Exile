@@ -4,6 +4,7 @@ import com.robertx22.balance_of_exile.anti_mob_farm.AntiMobFarmCap;
 import com.robertx22.balance_of_exile.anti_mob_farm.OnMobDeath;
 import com.robertx22.balance_of_exile.anti_mob_farm.WorldTickMinute;
 import com.robertx22.library_of_exile.components.EntityInfoComponent;
+import com.robertx22.library_of_exile.components.MySpawnReason;
 import com.robertx22.library_of_exile.events.base.EventConsumer;
 import com.robertx22.library_of_exile.events.base.ExileEvents;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
@@ -40,7 +41,10 @@ public class CommonInit implements ModInitializer {
                             event.lootChance *= multi;
                         }
                         if (BalanceConfig.get().ANTI_SPAWNER.ENABLE_ANTI_SPAWNER) {
-                            event.lootChance *= BalanceConfig.get().ANTI_SPAWNER.AGE_OF_EXILE_LOOT_MULTI;
+                            if (EntityInfoComponent.get(event.mobKilled)
+                                .getSpawnReason() == MySpawnReason.SPAWNER) {
+                                event.lootChance *= BalanceConfig.get().ANTI_SPAWNER.AGE_OF_EXILE_LOOT_MULTI;
+                            }
                         }
                     }
 
@@ -63,9 +67,11 @@ public class CommonInit implements ModInitializer {
                             event.exp *= multi;
                         }
                         if (BalanceConfig.get().ANTI_SPAWNER.ENABLE_ANTI_SPAWNER) {
-                            event.exp *= BalanceConfig.get().ANTI_SPAWNER.AGE_OF_EXILE_EXP_MULTI;
+                            if (EntityInfoComponent.get(event.mobKilled)
+                                .getSpawnReason() == MySpawnReason.SPAWNER) {
+                                event.exp *= BalanceConfig.get().ANTI_SPAWNER.AGE_OF_EXILE_EXP_MULTI;
+                            }
                         }
-
                     }
                 }
             }
