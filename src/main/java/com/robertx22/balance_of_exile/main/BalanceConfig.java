@@ -1,5 +1,6 @@
 package com.robertx22.balance_of_exile.main;
 
+import com.robertx22.balance_of_exile.anti_spawner.AntiSpawnerConfig;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
@@ -16,6 +17,9 @@ public class BalanceConfig implements ConfigData {
 
     @ConfigEntry.Gui.CollapsibleObject
     public AntiMobFarmConfig ANTI_MOB_FARM = new AntiMobFarmConfig();
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public AntiSpawnerConfig ANTI_SPAWNER = new AntiSpawnerConfig();
 
     public boolean AFFECT_MOB_LOOT_TABLES = true;
 

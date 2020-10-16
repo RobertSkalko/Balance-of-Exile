@@ -39,7 +39,9 @@ public class CommonInit implements ModInitializer {
                                 .getDropMultiForMob(event.mobKilled);
                             event.lootChance *= multi;
                         }
-
+                        if (BalanceConfig.get().ANTI_SPAWNER.ENABLE_ANTI_SPAWNER) {
+                            event.lootChance *= BalanceConfig.get().ANTI_SPAWNER.AGE_OF_EXILE_LOOT_MULTI;
+                        }
                     }
 
                 }
@@ -55,11 +57,13 @@ public class CommonInit implements ModInitializer {
                         if (!playerDidEnoughDamageTo(event.mobKilled)) {
                             event.exp = 0;
                         }
-
                         if (BalanceConfig.get().ANTI_MOB_FARM.ENABLE_ANTI_MOB_FARM) {
                             float multi = AntiMobFarmCap.get(event.mobKilled.world)
                                 .getDropMultiForMob(event.mobKilled);
                             event.exp *= multi;
+                        }
+                        if (BalanceConfig.get().ANTI_SPAWNER.ENABLE_ANTI_SPAWNER) {
+                            event.exp *= BalanceConfig.get().ANTI_SPAWNER.AGE_OF_EXILE_EXP_MULTI;
                         }
 
                     }

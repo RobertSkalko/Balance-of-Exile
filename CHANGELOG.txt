@@ -1,9 +1,6 @@
-v.1.0.2
+v.1.0.3
 
-1.16.2 port!
-Penalty works on mob spawn position now, instead of death position.
-Fix one shots not giving loot
-
-v.1.0.1
-
-Fix a check that made it work in reverse
++ now version ambiguous
++ added new age of exile feature, anti mob spawner!
+By default mob spawner mobs now won't drop any age of exile loot or experience.
+In return, I updated AoE so spawner blocks themselves drop loot now if they aren't mined by silk touch.
