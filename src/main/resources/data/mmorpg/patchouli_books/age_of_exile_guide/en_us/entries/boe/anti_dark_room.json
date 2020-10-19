@@ -1,0 +1,18 @@
+{
+  "name": "Anti Dark Room Farming",
+  "category": "boe",
+  "icon": "minecraft:coal",
+  "sortnum": 2,
+  "pages": [
+	{  
+		"type": "text",   
+		"title": "The Basics",
+		"text": "This is a bit more complicated. As mobs spawned in dark rooms are considered natural mob spawns, I need to use weird methods to punish farming those. I decided to punish based on how many mobs were killed that spawned in a certain chunk. The penalty quickly is lost as time passes."
+	},  
+	{  
+		"type": "text",   
+		"title": "More info",
+		"text": "In normal minecraft gameplay, you kill a few mobs, then move a chunk or two. But while using a dark room farm, you usually kill mobs that spawned in the same place. This feature effectively penalizes that and makes it not worth it to farm like that."
+	}
+  ]
+}

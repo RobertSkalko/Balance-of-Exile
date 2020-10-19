@@ -11,7 +11,6 @@ import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.entity.LivingEntity;
 
 public class CommonInit implements ModInitializer {
 
@@ -27,11 +26,11 @@ public class CommonInit implements ModInitializer {
         ExileEvents.SETUP_LOOT_CHANCE.register(new EventConsumer<ExileEvents.OnSetupLootChance>() {
             @Override
             public void accept(ExileEvents.OnSetupLootChance event) {
-                if (BalanceConfig.get().AFFECT_AGE_OF_EXILE_LOOT) {
+                if (BalanceConfig.get().GLOBAL_AFFECTS_WHAT.affects(ModAction.AOE_LOOT)) {
 
                     if (event.mobKilled != null) {
 
-                        if (!playerDidEnoughDamageTo(event.mobKilled)) {
+                        if (!BalanceConfig.get().ANTI_ENVIRO_DMG.playerDidEnoughDamageTo(event.mobKilled, ModAction.AOE_LOOT)) {
                             event.lootChance = 0;
                         }
 
@@ -55,10 +54,10 @@ public class CommonInit implements ModInitializer {
         ExileEvents.MOB_EXP_DROP.register(new EventConsumer<ExileEvents.OnMobExpDrop>() {
             @Override
             public void accept(ExileEvents.OnMobExpDrop event) {
-                if (BalanceConfig.get().AFFECT_AGE_OF_EXILE_LOOT) {
+                if (BalanceConfig.get().GLOBAL_AFFECTS_WHAT.affects(ModAction.AOE_EXP)) {
                     if (event.mobKilled != null) {
 
-                        if (!playerDidEnoughDamageTo(event.mobKilled)) {
+                        if (!BalanceConfig.get().ANTI_ENVIRO_DMG.playerDidEnoughDamageTo(event.mobKilled, ModAction.AOE_EXP)) {
                             event.exp = 0;
                         }
                         if (BalanceConfig.get().ANTI_MOB_FARM.ENABLE_ANTI_MOB_FARM) {
@@ -78,25 +77,6 @@ public class CommonInit implements ModInitializer {
         });
 
         System.out.println("Balance of Exile loaded.");
-    }
-
-    public static boolean playerDidEnoughDamageTo(LivingEntity entity) {
-
-        float damageDealt = EntityInfoComponent.get(entity)
-            .getDamageStats()
-            .getTotalPlayerDamage();
-
-        if (damageDealt > 0) {
-
-            float damageNeeded = entity.getMaxHealth() * BalanceConfig.get().MIN_PLAYER_DMG_TO_GET_LOOT;
-
-            return damageDealt >= damageNeeded;
-        } else {// if its one shotted by player
-            return EntityInfoComponent.get(entity)
-                .getDamageStats()
-                .getEnviroOrMobDmg() <= entity.getMaxHealth() / 2F;
-
-        }
     }
 
 }

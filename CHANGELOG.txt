@@ -4,3 +4,4 @@ v.1.0.3
 + added new age of exile feature, anti mob spawner!
 By default mob spawner mobs now won't drop any age of exile loot or experience.
 In return, I updated AoE so spawner blocks themselves drop loot now if they aren't mined by silk touch.
++ fix peaceful entity config not applying correctly

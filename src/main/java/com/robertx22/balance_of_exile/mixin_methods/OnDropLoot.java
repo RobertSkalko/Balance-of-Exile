@@ -2,7 +2,7 @@ package com.robertx22.balance_of_exile.mixin_methods;
 
 import com.robertx22.balance_of_exile.anti_mob_farm.AntiMobFarmCap;
 import com.robertx22.balance_of_exile.main.BalanceConfig;
-import com.robertx22.balance_of_exile.main.CommonInit;
+import com.robertx22.balance_of_exile.main.ModAction;
 import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -10,16 +10,19 @@ public class OnDropLoot {
 
     public static void tryCancel(LivingEntity entity, CallbackInfo ci) {
 
-        if (!BalanceConfig.get().AFFECT_MOB_LOOT_TABLES) {
+        if (!BalanceConfig.get().GLOBAL_AFFECTS_WHAT.affects(ModAction.VANILLA_LOOT)) {
             return;
         }
         if (BalanceConfig.get()
             .isDimensionExcluded(entity.world)) {
             return;
         }
-
-        if (!CommonInit.playerDidEnoughDamageTo(entity)) {
+        if (!BalanceConfig.get().ANTI_ENVIRO_DMG.playerDidEnoughDamageTo(entity, ModAction.VANILLA_LOOT)) {
             ci.cancel();
+            return;
+        }
+        if (!BalanceConfig.get()
+            .entityCounts(entity)) {
             return;
         }
 

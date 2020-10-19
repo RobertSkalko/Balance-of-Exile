@@ -1,5 +1,6 @@
 package com.robertx22.balance_of_exile.main;
 
+import com.robertx22.balance_of_exile.anti_enviro_dmg.AntiEnviroDmgConfig;
 import com.robertx22.balance_of_exile.anti_spawner.AntiSpawnerConfig;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
@@ -21,18 +22,16 @@ public class BalanceConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public AntiSpawnerConfig ANTI_SPAWNER = new AntiSpawnerConfig();
 
-    public boolean AFFECT_MOB_LOOT_TABLES = true;
+    @ConfigEntry.Gui.CollapsibleObject
+    public AntiEnviroDmgConfig ANTI_ENVIRO_DMG = new AntiEnviroDmgConfig();
 
-    public boolean AFFECT_AGE_OF_EXILE_LOOT = true;
+    @ConfigEntry.Gui.CollapsibleObject
+    public AffectsWhatConfig GLOBAL_AFFECTS_WHAT = new AffectsWhatConfig();
 
     public boolean AFFECT_PEACEFUL_ANIMALS = false;
 
-    @Comment("This stops players cheesing mobs with lava for example. Pretty good way to fight mob farms unless mods have fake player damage traps.")
-    public float MIN_PLAYER_DMG_TO_GET_LOOT = 0.5F;
-
     @Comment("Every feature is disabled in these dimensions")
     public List<String> DIMENSIONS_EXCLUDED = new ArrayList<>();
-
     public List<String> ENTITIES_EXCLUDED = new ArrayList<>();
 
     public static BalanceConfig get() {

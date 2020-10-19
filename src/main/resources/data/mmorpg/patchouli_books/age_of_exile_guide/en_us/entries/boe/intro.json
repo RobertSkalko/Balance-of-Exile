@@ -1,0 +1,18 @@
+{
+  "name": "Intro",
+  "category": "boe",
+  "icon": "minecraft:emerald",
+  "sortnum": 0,
+  "pages": [
+	{  
+		"type": "text",   
+		"title": "The Basics",
+		"text": "Balance of Exile is there for one thing only, to stop players from being rewarded for mob farming and cheesing mobs. Think of it this way, if you feel there is no danger when you're killing the mob, you shouldn't really be rewarded for it."
+	},  
+	{  
+		"type": "text",   
+		"title": "More info",
+		"text": "Now to explain how it does things. It has 3 important modules: Anti Spawners, Anti Dark room farming and anti Cheese. I will explain these in more detail."
+	}
+  ]
+}
