@@ -1,7 +1,7 @@
 package com.robertx22.balance_of_exile.mixin_methods;
 
 import com.robertx22.balance_of_exile.anti_mob_farm.AntiMobFarmCap;
-import com.robertx22.balance_of_exile.main.BalanceConfig;
+import com.robertx22.balance_of_exile.configs.BalanceConfig;
 import com.robertx22.balance_of_exile.main.ModAction;
 import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -27,14 +27,17 @@ public class OnDropLoot {
         }
 
         if (BalanceConfig.get().ANTI_MOB_FARM.ENABLE_ANTI_MOB_FARM) {
-            float multi = AntiMobFarmCap.get(entity.world)
-                .getDropMultiForMob(entity);
-            float chance = Math.abs((multi * 100F) - 100F);
 
-            if (chance > entity.getRandom()
-                .nextFloat() * 100) {
-                ci.cancel();
-                return;
+            if (BalanceConfig.get().ANTI_MOB_FARM.AFFECTS_WHAT.affects(ModAction.VANILLA_LOOT)) {
+                float multi = AntiMobFarmCap.get(entity.world)
+                    .getDropMultiForMob(entity);
+                float chance = Math.abs((multi * 100F) - 100F);
+
+                if (chance > entity.getRandom()
+                    .nextFloat() * 100) {
+                    ci.cancel();
+                    return;
+                }
             }
         }
 

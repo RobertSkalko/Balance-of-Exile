@@ -1,4 +1,4 @@
-package com.robertx22.balance_of_exile.anti_spawner;
+package com.robertx22.balance_of_exile.configs;
 
 import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.Comment;
 

@@ -1,5 +1,6 @@
 package com.robertx22.balance_of_exile.main;
 
+import com.robertx22.balance_of_exile.configs.BalanceConfig;
 import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;

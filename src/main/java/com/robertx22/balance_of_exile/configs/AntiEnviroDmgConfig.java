@@ -1,6 +1,5 @@
-package com.robertx22.balance_of_exile.anti_enviro_dmg;
+package com.robertx22.balance_of_exile.configs;
 
-import com.robertx22.balance_of_exile.main.AffectsWhatConfig;
 import com.robertx22.balance_of_exile.main.ModAction;
 import com.robertx22.library_of_exile.components.EntityInfoComponent;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;

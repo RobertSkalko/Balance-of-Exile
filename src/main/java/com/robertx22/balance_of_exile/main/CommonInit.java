@@ -3,6 +3,7 @@ package com.robertx22.balance_of_exile.main;
 import com.robertx22.balance_of_exile.anti_mob_farm.AntiMobFarmCap;
 import com.robertx22.balance_of_exile.anti_mob_farm.OnMobDeath;
 import com.robertx22.balance_of_exile.anti_mob_farm.WorldTickMinute;
+import com.robertx22.balance_of_exile.configs.BalanceConfig;
 import com.robertx22.library_of_exile.components.EntityInfoComponent;
 import com.robertx22.library_of_exile.components.MySpawnReason;
 import com.robertx22.library_of_exile.events.base.EventConsumer;
@@ -35,9 +36,11 @@ public class CommonInit implements ModInitializer {
                         }
 
                         if (BalanceConfig.get().ANTI_MOB_FARM.ENABLE_ANTI_MOB_FARM) {
-                            float multi = AntiMobFarmCap.get(event.mobKilled.world)
-                                .getDropMultiForMob(event.mobKilled);
-                            event.lootChance *= multi;
+                            if (BalanceConfig.get().ANTI_MOB_FARM.AFFECTS_WHAT.affects(ModAction.AOE_LOOT)) {
+                                float multi = AntiMobFarmCap.get(event.mobKilled.world)
+                                    .getDropMultiForMob(event.mobKilled);
+                                event.lootChance *= multi;
+                            }
                         }
                         if (BalanceConfig.get().ANTI_SPAWNER.ENABLE_ANTI_SPAWNER) {
                             if (EntityInfoComponent.get(event.mobKilled)
@@ -61,9 +64,11 @@ public class CommonInit implements ModInitializer {
                             event.exp = 0;
                         }
                         if (BalanceConfig.get().ANTI_MOB_FARM.ENABLE_ANTI_MOB_FARM) {
-                            float multi = AntiMobFarmCap.get(event.mobKilled.world)
-                                .getDropMultiForMob(event.mobKilled);
-                            event.exp *= multi;
+                            if (BalanceConfig.get().ANTI_MOB_FARM.AFFECTS_WHAT.affects(ModAction.AOE_EXP)) {
+                                float multi = AntiMobFarmCap.get(event.mobKilled.world)
+                                    .getDropMultiForMob(event.mobKilled);
+                                event.exp *= multi;
+                            }
                         }
                         if (BalanceConfig.get().ANTI_SPAWNER.ENABLE_ANTI_SPAWNER) {
                             if (EntityInfoComponent.get(event.mobKilled)

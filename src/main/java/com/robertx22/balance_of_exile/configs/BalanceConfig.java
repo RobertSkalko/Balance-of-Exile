@@ -1,7 +1,5 @@
-package com.robertx22.balance_of_exile.main;
+package com.robertx22.balance_of_exile.configs;
 
-import com.robertx22.balance_of_exile.anti_enviro_dmg.AntiEnviroDmgConfig;
-import com.robertx22.balance_of_exile.anti_spawner.AntiSpawnerConfig;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;

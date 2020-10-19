@@ -1,6 +1,6 @@
 package com.robertx22.balance_of_exile.anti_mob_farm;
 
-import com.robertx22.balance_of_exile.main.BalanceConfig;
+import com.robertx22.balance_of_exile.configs.BalanceConfig;
 import com.robertx22.library_of_exile.components.EntityInfoComponent;
 import info.loenwind.autosave.annotations.Storable;
 import info.loenwind.autosave.annotations.Store;

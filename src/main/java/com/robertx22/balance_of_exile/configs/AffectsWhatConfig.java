@@ -1,4 +1,6 @@
-package com.robertx22.balance_of_exile.main;
+package com.robertx22.balance_of_exile.configs;
+
+import com.robertx22.balance_of_exile.main.ModAction;
 
 public class AffectsWhatConfig {
 
