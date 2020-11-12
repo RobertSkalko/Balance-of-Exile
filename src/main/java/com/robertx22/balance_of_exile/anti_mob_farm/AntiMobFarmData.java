@@ -31,6 +31,13 @@ public class AntiMobFarmData {
         map.put(key, data);
     }
 
+    public void onNewLootChestOpened(ChunkPos cp) {
+        String key = getKey(cp);
+        AntiMobFarmChunkData data = map.getOrDefault(key, new AntiMobFarmChunkData());
+        data.onLootChestOpened();
+        map.put(key, data);
+    }
+
     public float getDropMultiForMob(LivingEntity en) {
 
         if (BalanceConfig.get()
@@ -54,12 +61,19 @@ public class AntiMobFarmData {
                 x.getValue()
                     .tickDown();
             });
+
+        map.entrySet()
+            .removeIf(x -> x.getValue()
+                .getDropsMulti() == 1); // dont need to save full ones.
+        // should reduce file size on super old worlds
     }
 
     private String getKey(LivingEntity en) {
-        ChunkPos cp = new ChunkPos(EntityInfoComponent.get(en)
-            .getSpawnPos());
-        return cp.x + "_" + cp.z;
+        return getKey(new ChunkPos(EntityInfoComponent.get(en)
+            .getSpawnPos()));
     }
 
+    private String getKey(ChunkPos cp) {
+        return cp.x + "_" + cp.z;
+    }
 }

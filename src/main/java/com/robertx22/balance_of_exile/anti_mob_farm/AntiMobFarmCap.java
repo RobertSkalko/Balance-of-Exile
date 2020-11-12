@@ -6,6 +6,7 @@ import nerdhub.cardinal.components.api.component.Component;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 
 public class AntiMobFarmCap {
@@ -23,6 +24,8 @@ public class AntiMobFarmCap {
         float getDropMultiForMob(LivingEntity en);
 
         void onMinutePassed();
+
+        void onLootChestOpened(ChunkPos pos);
 
     }
 
@@ -67,6 +70,11 @@ public class AntiMobFarmCap {
         @Override
         public void onMinutePassed() {
             this.data.tickDownAllKillCounters();
+        }
+
+        @Override
+        public void onLootChestOpened(ChunkPos pos) {
+            this.data.onNewLootChestOpened(pos);
         }
     }
 

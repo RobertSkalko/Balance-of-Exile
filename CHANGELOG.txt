@@ -1,7 +1,5 @@
-v.1.0.3
-
-+ now version ambiguous
-+ added new age of exile feature, anti mob spawner!
-By default mob spawner mobs now won't drop any age of exile loot or experience.
-In return, I updated AoE so spawner blocks themselves drop loot now if they aren't mined by silk touch.
-+ fix peaceful entity config not applying correctly
+v.1.0.5
+* new feature, temporary spawners!
+Spawners by default now work for a few minutes, and then enter cooldown where they don't work.
+This means continuous farming is prevented.
+There's also a config to enable exploding spawners when they run out of lifespan instead of entering cooldown.

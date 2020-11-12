@@ -26,6 +26,11 @@ public class AntiMobFarmChunkData {
         clamp();
     }
 
+    public void onLootChestOpened() {
+        this.p = 1;
+        clamp();
+    }
+
     public float getDropsMulti() {
         return MathHelper.clamp(p, 0, 1);
     }

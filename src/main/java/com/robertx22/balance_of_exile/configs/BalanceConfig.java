@@ -15,6 +15,9 @@ import java.util.List;
 public class BalanceConfig implements ConfigData {
 
     @ConfigEntry.Gui.CollapsibleObject
+    public TemporarySpawnersConfig TEMP_SPAWNERS = new TemporarySpawnersConfig();
+
+    @ConfigEntry.Gui.CollapsibleObject
     public AntiMobFarmConfig ANTI_MOB_FARM = new AntiMobFarmConfig();
 
     @ConfigEntry.Gui.CollapsibleObject
