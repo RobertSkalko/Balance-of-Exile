@@ -1,5 +1,1 @@
-v.1.0.5
-* new feature, temporary spawners!
-Spawners by default now work for a few minutes, and then enter cooldown where they don't work.
-This means continuous farming is prevented.
-There's also a config to enable exploding spawners when they run out of lifespan instead of entering cooldown.
+v.1.1.1

@@ -1,49 +1,48 @@
 {
   "schemaVersion": 1,
-  "id": "balance_of_exile",
-  "version": "1.0.5",
-  "name": "Balance of Exile",
-  "description": "Anti mob farm mod, with support for my other mod: Age of Exile.",
+  "id": "anti_mob_cheese",
+  "version": "1.1.1",
+  "name": "Anti Mob Cheese",
+  "description": "De-incentivize over-farming mobs in a chunk, and other anti cheese features.",
   "authors": [
     "mcrobertx22"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/balance-of-exile",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/anti-mob-cheese",
     "sources": "https://github.com/RobertSkalko/Balance-of-Exile"
   },
   "license": "",
   "icon": "icon.png",
-
   "environment": "*",
   "entrypoints": {
-    "main":   ["com.robertx22.balance_of_exile.main.CommonInit"],
-	"client": ["com.robertx22.balance_of_exile.main.ClientInit"],
-	"cardinal-components-block": ["com.robertx22.balance_of_exile.main.ComponentInit"],
-	"modmenu":["com.robertx22.balance_of_exile.main.ModMenuIntegration"]	
+    "main": [
+      "com.robertx22.anti_mob_cheese.main.CommonInit"
+    ],
+    "client": [
+      "com.robertx22.anti_mob_cheese.main.ClientInit"
+    ],
+    "modmenu": [
+      "com.robertx22.anti_mob_cheese.main.ModMenuIntegration"
+    ]
   },
-  "mixins": [   
-  "balance_of_exile.mixins.json"
+  "mixins": [
+    "anti_mob_cheese.mixins.json"
   ],
-
-  "depends": { 
-	"minecraft": ">=1.16.2",	
-    "fabricloader": ">=0.9.0",   
-	"fabric": ">=0.15.0",
-	"library_of_exile": ">=1.0.5",
-	"cloth-config2": "*",
-	"autoconfig1u": "*",
-	"cardinal-components-base": ">=2.5.0",
-	"cardinal-components-entity": ">=2.5.0",
-	"cardinal-components-block": ">=2.5.0",
-	"cardinal-components-world": ">=2.5.0"	
+  "depends": {
+    "minecraft": ">=1.16.2",
+    "fabricloader": ">=0.9.0",
+    "fabric": ">=0.15.0",
+    "library_of_exile": ">=1.0.5",
+    "cloth-config2": "*",
+    "autoconfig1u": "*",
+    "cardinal-components-base": ">=2.8.0",
+    "cardinal-components-entity": ">=2.8.0",
+    "cardinal-components-block": ">=2.8.0",
+    "cardinal-components-world": ">=2.8.0"
   },
   "suggests": {
     "age_of_exile": "*"
   },
   "custom": {
-        "cardinal-components": [
-            "balance_of_exile:spawner"
-        ]
-    }
-  
+  }
 }
