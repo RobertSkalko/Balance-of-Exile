@@ -14,5 +14,7 @@ public class AntiMobFarmConfig {
     @Comment("Decreases loot drops by 2% by default every time a mob is killed")
     public float ON_MOB_KILLED_DECREASE_BY = 0.02F;
     public float ON_MINUTE_PASSED_INCREASE_BY = 0.05F;
+    public int FREE_MOB_KILLS_BEFORE_PENALTY_STARTS = 10;
+    public int ADD_FREE_KILLS_ON_CHEST_LOOT = 5;
 
 }

@@ -1,1 +1,5 @@
-v.1.1.1
+v.1.1.2
+Add "free kill" feature, chunks now have a one time amount of free kills you are allowed before the penalty starts.
+Opening chests also adds an amount of free kills backs.
+
+This feature is meant to make tall towers a viable way to get loot, while still staying true to the mod's ideal of punishing mob farms.
