@@ -6,7 +6,7 @@ import com.robertx22.library_of_exile.events.base.EventConsumer;
 import com.robertx22.library_of_exile.events.base.ExileEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.server.ServerWorld;
 
 public class OnMobDeath extends EventConsumer<ExileEvents.OnMobDeath> {
 
@@ -18,10 +18,10 @@ public class OnMobDeath extends EventConsumer<ExileEvents.OnMobDeath> {
 
             Entity killer = EntityInfoComponent.get(event.mob)
                 .getDamageStats()
-                .getHighestDamager((ServerWorld) event.mob.world);
+                .getHighestDamager((ServerWorld) event.mob.level);
 
             if (killer instanceof PlayerEntity) {
-                AntiMobFarmCap.get(event.mob.world)
+                AntiMobFarmCap.get(event.mob.level)
                     .onValidMobDeathByPlayer(event.mob);
             }
         }

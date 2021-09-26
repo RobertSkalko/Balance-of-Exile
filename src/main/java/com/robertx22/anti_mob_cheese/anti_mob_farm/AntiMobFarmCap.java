@@ -1,81 +1,104 @@
 package com.robertx22.anti_mob_cheese.anti_mob_farm;
 
-import com.robertx22.anti_mob_cheese.main.Components;
+import com.robertx22.library_of_exile.components.forge.BaseProvider;
+import com.robertx22.library_of_exile.components.forge.BaseStorage;
+import com.robertx22.library_of_exile.components.forge.ICommonCap;
+import com.robertx22.library_of_exile.main.Ref;
 import com.robertx22.library_of_exile.utils.LoadSave;
-import nerdhub.cardinal.components.api.component.Component;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.Identifier;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-public class AntiMobFarmCap {
+@Mod.EventBusSubscriber
+public class AntiMobFarmCap implements ICommonCap {
 
-    public static final Identifier RESOURCE = new Identifier("anti_mob_cheese", "anti_mob_farm");
+    @CapabilityInject(AntiMobFarmCap.class)
+    public static final Capability<AntiMobFarmCap> Data = null;
 
-    public static AntiMobFarmCap.IAntiMobFarmData get(World provider) {
-        return Components.INSTANCE.ANTI_MOB_FARM.get(provider);
+    @Mod.EventBusSubscriber
+    public static class EventHandler {
+        @SubscribeEvent
+        public static void onEntityConstruct(AttachCapabilitiesEvent<World> event) {
+            event.addCapability(RESOURCE, new Provider(event.getObject()));
+        }
     }
 
-    public interface IAntiMobFarmData extends Component {
+    public static final ResourceLocation RESOURCE = new ResourceLocation(Ref.MODID, "chunk_data");
 
-        void onValidMobDeathByPlayer(LivingEntity en);
+    public static AntiMobFarmCap get(World provider) {
+        return provider.getCapability(Data)
+            .orElse(new AntiMobFarmCap(provider));
+    }
 
-        float getDropMultiForMob(LivingEntity en);
+    public static class Provider extends BaseProvider<AntiMobFarmCap, World> {
+        public Provider(World owner) {
+            super(owner);
+        }
 
-        void onMinutePassed();
+        @Override
+        public AntiMobFarmCap newDefaultImpl(World owner) {
+            return new AntiMobFarmCap(owner);
+        }
 
-        void onLootChestOpened(ChunkPos pos);
+        @Override
+        public Capability<AntiMobFarmCap> dataInstance() {
+            return Data;
+        }
+    }
+
+    public static class Storage implements BaseStorage<AntiMobFarmCap> {
 
     }
 
     static String DATA_LOC = "anti_mob_cheese:data";
 
-    public static class DefaultImpl implements IAntiMobFarmData {
+    AntiMobFarmData data = new AntiMobFarmData();
 
-        AntiMobFarmData data = new AntiMobFarmData();
+    World world;
 
-        @Override
-        public NbtCompound toTag(NbtCompound nbt) {
+    public AntiMobFarmCap(World world) {
+        this.world = world;
+    }
 
-            if (data != null) {
-                LoadSave.Save(data, nbt, DATA_LOC);
-            }
-
-            return nbt;
-
+    @Override
+    public CompoundNBT saveToNBT() {
+        CompoundNBT nbt = new CompoundNBT();
+        if (data != null) {
+            LoadSave.Save(data, nbt, DATA_LOC);
         }
+        return nbt;
+    }
 
-        @Override
-        public void fromTag(NbtCompound nbt) {
+    @Override
+    public void loadFromNBT(CompoundNBT nbt) {
+        data = LoadSave.Load(AntiMobFarmData.class, new AntiMobFarmData(), nbt, DATA_LOC);
 
-            data = LoadSave.Load(AntiMobFarmData.class, new AntiMobFarmData(), nbt, DATA_LOC);
-
-            if (data == null) {
-                data = new AntiMobFarmData();
-            }
-
+        if (data == null) {
+            data = new AntiMobFarmData();
         }
+    }
 
-        @Override
-        public void onValidMobDeathByPlayer(LivingEntity en) {
-            this.data.onValidMobDeathByPlayer(en);
-        }
+    public void onValidMobDeathByPlayer(LivingEntity en) {
+        this.data.onValidMobDeathByPlayer(en);
+    }
 
-        @Override
-        public float getDropMultiForMob(LivingEntity en) {
-            return this.data.getDropMultiForMob(en);
-        }
+    public float getDropMultiForMob(LivingEntity en) {
+        return this.data.getDropMultiForMob(en);
+    }
 
-        @Override
-        public void onMinutePassed() {
-            this.data.tickDownAllKillCounters();
-        }
+    public void onMinutePassed() {
+        this.data.tickDownAllKillCounters();
+    }
 
-        @Override
-        public void onLootChestOpened(ChunkPos pos) {
-            this.data.onNewLootChestOpened(pos);
-        }
+    public void onLootChestOpened(ChunkPos pos) {
+        this.data.onNewLootChestOpened(pos);
     }
 
 }

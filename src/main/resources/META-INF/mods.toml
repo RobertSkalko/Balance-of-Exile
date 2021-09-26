@@ -1,0 +1,34 @@
+modLoader="javafml" #mandatory
+loaderVersion="[36,)"
+license="All rights reserved"
+issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+[[mods]]
+modId="anti_mob_farm"
+version="${file.jarVersion}"
+displayName="Anti Mob Farm"
+#updateJSONURL="https://change.me.example.invalid/updates.json"
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
+logoFile="icon.png"
+credits=""
+authors="mcrobertx22"
+description='''
+Makes automatic mob farming very inefficient due to overkill chunk penalty!
+'''
+[[dependencies.anti_mob_farm]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.anti_mob_farm]]
+    modId="library_of_exile"
+    mandatory=true
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.anti_mob_farm]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"

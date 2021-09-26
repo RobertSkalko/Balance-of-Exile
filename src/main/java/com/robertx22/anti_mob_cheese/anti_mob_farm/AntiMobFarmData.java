@@ -5,7 +5,7 @@ import com.robertx22.library_of_exile.components.EntityInfoComponent;
 import info.loenwind.autosave.annotations.Storable;
 import info.loenwind.autosave.annotations.Store;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.SlimeEntity;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.util.math.ChunkPos;
 
 import java.util.HashMap;
@@ -19,7 +19,7 @@ public class AntiMobFarmData {
     public void onValidMobDeathByPlayer(LivingEntity en) {
 
         if (en instanceof SlimeEntity) {
-            if (en.world.random.nextFloat() >= 0.2F) {
+            if (en.level.random.nextFloat() >= 0.2F) {
                 return; // slimes get a slight rule relaxation
             }
         }
@@ -41,7 +41,7 @@ public class AntiMobFarmData {
     public float getDropMultiForMob(LivingEntity en) {
 
         if (CheeseConfig.get()
-            .isDimensionExcluded(en.world)) {
+            .isDimensionExcluded(en.level)) {
             return 1;
         }
 
