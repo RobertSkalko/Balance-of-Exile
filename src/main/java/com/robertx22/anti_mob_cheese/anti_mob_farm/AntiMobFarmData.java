@@ -27,7 +27,14 @@ public class AntiMobFarmData {
         String key = getKey(en);
 
         AntiMobFarmChunkData data = map.getOrDefault(key, new AntiMobFarmChunkData());
-        data.onMobDeath();
+
+        ChunkCap chunk = ChunkCap.get(en.level.getChunkAt(en.blockPosition()));
+        if (!chunk.isKillFree()) {
+            data.onMobDeath();
+        } else {
+            chunk.onValidMobDeathByPlayer(en);
+        }
+
         map.put(key, data);
     }
 
@@ -64,7 +71,7 @@ public class AntiMobFarmData {
 
         map.entrySet()
             .removeIf(x -> x.getValue()
-                .getDropsMulti() == 1); // dont need to save full ones.
+                .canBeWipedFromData()); // dont need to save full ones.
         // should reduce file size on super old worlds
     }
 

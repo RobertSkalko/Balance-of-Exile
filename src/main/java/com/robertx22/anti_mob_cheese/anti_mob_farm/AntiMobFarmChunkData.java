@@ -10,21 +10,18 @@ public class AntiMobFarmChunkData {
 
     @Store
     private float p = 1;
-    // free kills
-    @Store
-    private int m = CheeseConfig.get().FREE_MOB_KILLS_BEFORE_PENALTY_STARTS.get();
 
     public void tickDown() {
         this.p += CheeseConfig.get().ON_MINUTE_PASSED_INCREASE_BY.get();
+
         clamp();
     }
 
-    public void onMobDeath() {
+    public boolean canBeWipedFromData() {
+        return getDropsMulti() == 1;
+    }
 
-        if (m > 0) {
-            m--;
-            return;
-        }
+    public void onMobDeath() {
 
         this.p = p - CheeseConfig.get().ON_MOB_KILLED_DECREASE_BY.get()
             .floatValue();
@@ -39,7 +36,6 @@ public class AntiMobFarmChunkData {
 
     public void onLootChestOpened() {
         this.p = 1;
-        this.m += CheeseConfig.get().ADD_FREE_KILLS_ON_CHEST_LOOT.get();
         clamp();
     }
 

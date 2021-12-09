@@ -45,9 +45,9 @@ public class CheeseConfig {
         ON_MINUTE_PASSED_INCREASE_BY = b
             .defineInRange("penalty_regen_per_minute", 0.05D, 0D, 1D);
         FREE_MOB_KILLS_BEFORE_PENALTY_STARTS = b
-            .defineInRange("mob_kill_chunk_penalty", 10, 0, 1000);
+            .defineInRange("one_time_free_kills_per_chunk", 15, 0, 1000);
         ADD_FREE_KILLS_ON_CHEST_LOOT = b
-            .defineInRange("mob_kill_chunk_penalty", 5, 0, 1000);
+            .defineInRange("added_free_kills_on_chest_looted", 5, 0, 1000);
 
         List<String> dim = new ArrayList<>();
         dim.add("mmorpg:dungeon");

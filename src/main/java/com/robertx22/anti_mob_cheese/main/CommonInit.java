@@ -1,6 +1,7 @@
 package com.robertx22.anti_mob_cheese.main;
 
 import com.robertx22.anti_mob_cheese.anti_mob_farm.AntiMobFarmCap;
+import com.robertx22.anti_mob_cheese.anti_mob_farm.ChunkCap;
 import com.robertx22.anti_mob_cheese.anti_mob_farm.OnMobDeath;
 import com.robertx22.anti_mob_cheese.anti_mob_farm.WorldTickMinute;
 import com.robertx22.anti_mob_cheese.configs.CheeseConfig;
@@ -8,6 +9,7 @@ import com.robertx22.anti_mob_cheese.mixin_methods.OnDropLoot;
 import com.robertx22.library_of_exile.events.base.EventConsumer;
 import com.robertx22.library_of_exile.events.base.ExileEvents;
 import com.robertx22.library_of_exile.main.ForgeEvents;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -33,8 +35,10 @@ public class CommonInit {
         bus.addListener(this::commonSetupEvent);
 
         ForgeEvents.registerForgeEvent(LivingDropsEvent.class, event -> {
-            if (OnDropLoot.tryCancel(event.getEntityLiving())) {
-                event.setCanceled(true);
+            if (event.getEntityLiving() instanceof PlayerEntity == false) {
+                if (OnDropLoot.tryCancel(event.getEntityLiving())) {
+                    event.setCanceled(true);
+                }
             }
         });
 
@@ -53,8 +57,14 @@ public class CommonInit {
         ExileEvents.ON_CHEST_LOOTED.register(new EventConsumer<ExileEvents.OnChestLooted>() {
             @Override
             public void accept(ExileEvents.OnChestLooted event) {
-                AntiMobFarmCap.get(event.player.level)
-                    .onLootChestOpened(new ChunkPos(event.pos));
+                try {
+                    AntiMobFarmCap.get(event.player.level)
+                        .onLootChestOpened(new ChunkPos(event.pos));
+                    ChunkCap.get(event.player.level.getChunkAt(event.pos))
+                        .onLootChestOpened();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -119,6 +129,11 @@ public class CommonInit {
             AntiMobFarmCap.class,
             new AntiMobFarmCap.Storage(),
             () -> new AntiMobFarmCap(null)
+        );
+        CapabilityManager.INSTANCE.register(
+            ChunkCap.class,
+            new ChunkCap.Storage(),
+            () -> new ChunkCap(null)
         );
     }
 
