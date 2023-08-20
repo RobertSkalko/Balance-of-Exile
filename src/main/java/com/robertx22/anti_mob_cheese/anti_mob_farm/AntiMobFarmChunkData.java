@@ -1,14 +1,12 @@
 package com.robertx22.anti_mob_cheese.anti_mob_farm;
 
 import com.robertx22.anti_mob_cheese.configs.CheeseConfig;
-import info.loenwind.autosave.annotations.Storable;
-import info.loenwind.autosave.annotations.Store;
-import net.minecraft.util.math.MathHelper;
+import org.joml.Math;
 
-@Storable
+
 public class AntiMobFarmChunkData {
 
-    @Store
+
     private float p = 1;
 
     public void tickDown() {
@@ -24,11 +22,11 @@ public class AntiMobFarmChunkData {
     public void onMobDeath() {
 
         this.p = p - CheeseConfig.get().ON_MOB_KILLED_DECREASE_BY.get()
-            .floatValue();
+                .floatValue();
 
         if (p < 0.5F) {
             this.p = p - CheeseConfig.get().ON_MOB_KILLED_DECREASE_BY.get()
-                .floatValue(); // if it's likely a mob farm, decrease faster
+                    .floatValue(); // if it's likely a mob farm, decrease faster
         }
 
         clamp();
@@ -40,10 +38,10 @@ public class AntiMobFarmChunkData {
     }
 
     public float getDropsMulti() {
-        return MathHelper.clamp(p, 0, 1);
+        return Math.clamp(p, 0, 1);
     }
 
     public void clamp() {
-        this.p = MathHelper.clamp(p, 0, 1);
+        this.p = Math.clamp(p, 0, 1);
     }
 }
