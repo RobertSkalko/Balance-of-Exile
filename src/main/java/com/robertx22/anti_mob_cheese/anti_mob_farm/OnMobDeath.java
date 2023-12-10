@@ -14,16 +14,12 @@ public class OnMobDeath extends EventConsumer<ExileEvents.OnMobDeath> {
     @Override
     public void accept(ExileEvents.OnMobDeath event) {
 
-        if (CheeseConfig.get()
-                .entityCounts(event.mob)) {
+        if (CheeseConfig.get().entityCounts(event.mob)) {
 
-            Entity killer = EntityInfoComponent.get(event.mob)
-                    .getDamageStats()
-                    .getHighestDamager((ServerLevel) event.mob.level());
+            Entity killer = EntityInfoComponent.get(event.mob).getDamageStats().getHighestDamager((ServerLevel) event.mob.level());
 
             if (killer instanceof Player) {
-                AntiMobFarmCap.get(event.mob.level())
-                        .onValidMobDeathByPlayer(event.mob);
+                AntiMobFarmCap.get(event.mob.level()).onValidMobDeathByPlayer(event.mob);
             }
         }
     }

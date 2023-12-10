@@ -106,7 +106,7 @@ public class CheeseConfig {
             return true;
         }
 
-        
+
         float damageDealt = EntityInfoComponent.get(entity)
                 .getDamageStats()
                 .getTotalPlayerDamage();
@@ -134,6 +134,8 @@ public class CheeseConfig {
 
     }
 
+    static String GATEWAYS = "gateways.owner";
+
     public boolean entityCounts(LivingEntity mob) {
 
         String id = mob.level().registryAccess().registry(Registries.ENTITY_TYPE).get().getKey(mob.getType())
@@ -147,6 +149,11 @@ public class CheeseConfig {
         if (!AFFECT_PEACEFUL_ANIMALS.get() && mob.getType()
                 .getCategory()
                 .isFriendly()) {
+            return false;
+        }
+
+        // if it's spawned by a gateway
+        if (mob.getPersistentData().hasUUID(GATEWAYS)) {
             return false;
         }
 

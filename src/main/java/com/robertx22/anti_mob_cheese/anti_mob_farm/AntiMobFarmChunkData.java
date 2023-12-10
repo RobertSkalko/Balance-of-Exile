@@ -1,7 +1,6 @@
 package com.robertx22.anti_mob_cheese.anti_mob_farm;
 
 import com.robertx22.anti_mob_cheese.configs.CheeseConfig;
-import org.joml.Math;
 
 
 public class AntiMobFarmChunkData {
@@ -38,10 +37,10 @@ public class AntiMobFarmChunkData {
     }
 
     public float getDropsMulti() {
-        return Math.clamp(p, 0, 1);
+        return MathHelper.clamp(p, 0, 1);
     }
 
     public void clamp() {
-        this.p = Math.clamp(p, 0, 1);
+        this.p = MathHelper.clamp(p, 0, 1);
     }
 }
