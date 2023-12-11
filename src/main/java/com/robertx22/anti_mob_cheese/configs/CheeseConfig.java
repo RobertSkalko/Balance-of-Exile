@@ -49,6 +49,9 @@ public class CheeseConfig {
         ADD_FREE_KILLS_ON_CHEST_LOOT = b
                 .defineInRange("added_free_kills_on_chest_looted", 5, 0, 1000);
 
+        GATEWAYS_MOB_CHANCE_TO_NOT_PROC_PENALTY = b.defineInRange("GATEWAYS_MOB_CHANCE_TO_NOT_PROC_PENALTY", 75, 0D, 100D);
+
+
         List<String> dim = new ArrayList<>();
         dim.add("mmorpg:dungeon");
 
@@ -71,6 +74,8 @@ public class CheeseConfig {
 
     public ForgeConfigSpec.DoubleValue ON_MOB_KILLED_DECREASE_BY;
     public ForgeConfigSpec.DoubleValue ON_MINUTE_PASSED_INCREASE_BY;
+
+    public ForgeConfigSpec.DoubleValue GATEWAYS_MOB_CHANCE_TO_NOT_PROC_PENALTY;
 
     public ForgeConfigSpec.IntValue FREE_MOB_KILLS_BEFORE_PENALTY_STARTS;
     public ForgeConfigSpec.IntValue ADD_FREE_KILLS_ON_CHEST_LOOT;
@@ -134,7 +139,6 @@ public class CheeseConfig {
 
     }
 
-    static String GATEWAYS = "gateways.owner";
 
     public boolean entityCounts(LivingEntity mob) {
 
@@ -152,10 +156,6 @@ public class CheeseConfig {
             return false;
         }
 
-        // if it's spawned by a gateway
-        if (mob.getPersistentData().hasUUID(GATEWAYS)) {
-            return false;
-        }
 
         return true;
     }
