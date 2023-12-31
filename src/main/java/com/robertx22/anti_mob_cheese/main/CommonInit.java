@@ -1,9 +1,6 @@
 package com.robertx22.anti_mob_cheese.main;
 
-import com.robertx22.anti_mob_cheese.anti_mob_farm.AntiMobFarmCap;
-import com.robertx22.anti_mob_cheese.anti_mob_farm.ChunkCap;
-import com.robertx22.anti_mob_cheese.anti_mob_farm.OnMobDeath;
-import com.robertx22.anti_mob_cheese.anti_mob_farm.WorldTickMinute;
+import com.robertx22.anti_mob_cheese.anti_mob_farm.*;
 import com.robertx22.anti_mob_cheese.configs.CheeseConfig;
 import com.robertx22.anti_mob_cheese.mixin_methods.OnDropLoot;
 import com.robertx22.library_of_exile.events.base.EventConsumer;
@@ -17,6 +14,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -46,6 +44,10 @@ public class CommonInit {
                     event.setCanceled(true);
                 }
             }
+        });
+
+        ApiForgeEvents.registerForgeEvent(RegisterCommandsEvent.class, event -> {
+            TestCommand.register(event.getDispatcher());
         });
 
         ApiForgeEvents.registerForgeEvent(TickEvent.LevelTickEvent.class, event -> {
@@ -126,7 +128,7 @@ public class CommonInit {
             }
         });
 
-        
+
         System.out.println("Anti Mob Cheese loaded.");
     }
 

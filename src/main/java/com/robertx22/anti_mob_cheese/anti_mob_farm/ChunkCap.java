@@ -45,6 +45,10 @@ public class ChunkCap implements ICap {
 
     private int freeKills = CheeseConfig.get().FREE_MOB_KILLS_BEFORE_PENALTY_STARTS.get();
 
+    public int getFreeKills() {
+        return freeKills;
+    }
+
     LevelChunk chunk;
 
     public ChunkCap(LevelChunk chunk) {

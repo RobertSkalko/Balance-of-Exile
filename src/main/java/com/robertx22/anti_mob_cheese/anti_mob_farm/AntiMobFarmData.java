@@ -70,6 +70,19 @@ public class AntiMobFarmData {
         }
     }
 
+    public float getDropMultiForChunk(ChunkPos cp) {
+
+
+        String key = getKey(cp);
+
+        if (map.containsKey(key)) {
+            return map.get(key)
+                    .getDropsMulti();
+        } else {
+            return 1;
+        }
+    }
+
     public void tickDownAllKillCounters() {
         map.entrySet()
                 .forEach(x -> {
@@ -84,8 +97,7 @@ public class AntiMobFarmData {
     }
 
     private String getKey(LivingEntity en) {
-        return getKey(new ChunkPos(EntityInfoComponent.get(en)
-                .getSpawnPos()));
+        return getKey(new ChunkPos(EntityInfoComponent.get(en).getSpawnPos()));
     }
 
     private String getKey(ChunkPos cp) {

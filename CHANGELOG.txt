@@ -1,3 +1,6 @@
 v.1.3.3
 
 - made gateway fix a config
+
+v.1.3.4
+- added /anti_mob_farm chunk_info command, do note this isn't a complete debug tool because the actual code depends on the entity killed

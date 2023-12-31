@@ -4,7 +4,7 @@ license = "All rights reserved"
 issueTrackerURL = "https://github.com/RobertSkalko/Balance-of-Exile/issues"
 [[mods]]
 modId = "anti_mob_farm"
-version = "1.3.3"
+version = "1.3.4"
 displayName = "Anti Mob Farm"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
 #displayURL="https://legacy.curseforge.com/minecraft/mc-mods/anti-mob-cheese"
@@ -23,7 +23,7 @@ side = "BOTH"
 [[dependencies.anti_mob_farm]]
 modId = "library_of_exile"
 mandatory = true
-versionRange = "[0,)"
+versionRange = "[1.4.1,)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.anti_mob_farm]]
