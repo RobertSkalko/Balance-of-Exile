@@ -17,6 +17,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -24,6 +25,8 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 @Mod(AMC.MODID)
@@ -38,9 +41,17 @@ public class CommonInit {
 
         bus.addListener(this::commonSetupEvent);
 
+        ApiForgeEvents.registerForgeEvent(LivingExperienceDropEvent.class, event -> {
+            if (event.getEntity() instanceof Player == false) {
+                if (OnDropLoot.tryCancel(event.getEntity(), ModAction.VANILLA_EXP)) {
+                    event.setCanceled(true);
+                }
+            }
+        });
+
         ApiForgeEvents.registerForgeEvent(LivingDropsEvent.class, event -> {
             if (event.getEntity() instanceof Player == false) {
-                if (OnDropLoot.tryCancel(event.getEntity())) {
+                if (OnDropLoot.tryCancel(event.getEntity(), ModAction.VANILLA_LOOT)) {
                     event.setCanceled(true);
                 }
             }
@@ -65,10 +76,25 @@ public class CommonInit {
             @Override
             public void accept(ExileEvents.OnChestLooted event) {
                 try {
-                    AntiMobFarmCap.get(event.player.level())
-                            .onLootChestOpened(new ChunkPos(event.pos));
-                    ChunkCap.get(event.player.level().getChunkAt(event.pos))
-                            .onLootChestOpened();
+
+                    var start = (new ChunkPos(event.pos));
+
+
+                    AntiMobFarmCap.get(event.player.level()).onLootChestOpened(start);
+
+                    List<ChunkPos> chunks = new ArrayList<>();
+                    chunks.add(start);
+                    int radius = 1;
+                    for (int x = -radius; x < radius; x++) {
+                        for (int z = -radius; z < radius; z++) {
+                            chunks.add(new ChunkPos(start.x + x, start.z + z));
+                        }
+                    }
+                    for (ChunkPos chunk : chunks) {
+                        ChunkCap.get(event.player.level().getChunk(chunk.x, chunk.z)).onLootChestOpened();
+                    }
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

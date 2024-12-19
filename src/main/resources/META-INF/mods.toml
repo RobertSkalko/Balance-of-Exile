@@ -1,13 +1,12 @@
 modLoader = "javafml" #mandatory
 loaderVersion = "[36,)"
 license = "All rights reserved"
-issueTrackerURL = "https://github.com/RobertSkalko/Balance-of-Exile/issues"
+issueTrackerURL = "${mod_issues_link}"
 [[mods]]
-modId = "anti_mob_farm"
-version = "1.3.4"
-displayName = "Anti Mob Farm"
-#updateJSONURL="https://change.me.example.invalid/updates.json"
-#displayURL="https://legacy.curseforge.com/minecraft/mc-mods/anti-mob-cheese"
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_display_name}"
+displayURL="${mod_website_link}"
 logoFile = "icon.png"
 credits = ""
 authors = "mcrobertx22"

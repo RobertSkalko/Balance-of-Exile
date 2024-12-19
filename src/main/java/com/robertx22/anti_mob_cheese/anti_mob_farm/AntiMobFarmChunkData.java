@@ -20,12 +20,10 @@ public class AntiMobFarmChunkData {
 
     public void onMobDeath() {
 
-        this.p = p - CheeseConfig.get().ON_MOB_KILLED_DECREASE_BY.get()
-                .floatValue();
+        this.p = p - CheeseConfig.get().ON_MOB_KILLED_DECREASE_BY.get().floatValue();
 
         if (p < 0.5F) {
-            this.p = p - CheeseConfig.get().ON_MOB_KILLED_DECREASE_BY.get()
-                    .floatValue(); // if it's likely a mob farm, decrease faster
+            this.p = p - CheeseConfig.get().ON_MOB_KILLED_DECREASE_BY.get().floatValue(); // if it's likely a mob farm, decrease faster
         }
 
         clamp();

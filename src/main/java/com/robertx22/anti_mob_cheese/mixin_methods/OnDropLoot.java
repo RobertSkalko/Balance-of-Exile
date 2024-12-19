@@ -7,32 +7,26 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class OnDropLoot {
 
-    
-    public static boolean tryCancel(LivingEntity entity) {
 
-        if (!CheeseConfig.get()
-                .affects(ModAction.VANILLA_LOOT)) {
+    public static boolean tryCancel(LivingEntity entity, ModAction action) {
+
+        if (!CheeseConfig.get().affects(action)) {
             return false;
         }
-        if (CheeseConfig.get()
-                .isDimensionExcluded(entity.level())) {
+        if (CheeseConfig.get().isDimensionExcluded(entity.level())) {
             return false;
         }
-        if (!CheeseConfig.get()
-                .playerDidEnoughDamageTo(entity, ModAction.VANILLA_LOOT)) {
+        if (!CheeseConfig.get().playerDidEnoughDamageTo(entity, action)) {
             return true;
         }
-        if (!CheeseConfig.get()
-                .entityCounts(entity)) {
+        if (!CheeseConfig.get().entityCounts(entity)) {
             return false;
         }
 
         if (CheeseConfig.get().ENABLE_ANTI_MOB_FARM.get()) {
 
-            if (CheeseConfig.get()
-                    .affects(ModAction.VANILLA_LOOT)) {
-                float multi = AntiMobFarmCap.get(entity.level())
-                        .getDropMultiForMob(entity);
+            if (CheeseConfig.get().affects(action)) {
+                float multi = AntiMobFarmCap.get(entity.level()).getDropMultiForMob(entity);
                 float chance = Math.abs((multi * 100F) - 100F);
 
                 if (chance > entity.getRandom()

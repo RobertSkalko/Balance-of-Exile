@@ -86,17 +86,17 @@ public class AntiMobFarmData {
     public void tickDownAllKillCounters() {
         map.entrySet()
                 .forEach(x -> {
-                    x.getValue()
-                            .tickDown();
+                    x.getValue().tickDown();
                 });
 
-        map.entrySet()
-                .removeIf(x -> x.getValue()
-                        .canBeWipedFromData()); // dont need to save full ones.
+        map.entrySet().removeIf(x -> x.getValue().canBeWipedFromData()); // dont need to save full ones.
         // should reduce file size on super old worlds
     }
 
     private String getKey(LivingEntity en) {
+        if (CheeseConfig.get().USE_DEATH_LOCATION.get()) {
+            return getKey(new ChunkPos(en.blockPosition()));
+        }
         return getKey(new ChunkPos(EntityInfoComponent.get(en).getSpawnPos()));
     }
 

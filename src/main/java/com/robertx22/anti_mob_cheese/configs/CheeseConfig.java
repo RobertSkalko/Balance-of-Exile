@@ -26,39 +26,36 @@ public class CheeseConfig {
         b.comment("Settings")
                 .push("general");
 
-        ENABLE_ANTI_MOB_FARM = b
-                .define("enable_anti_mob_farm", true);
-        AFFECT_PEACEFUL_ANIMALS = b
-                .define("affect_animals", false);
-        AFFECT_VANILLA_LOOT_TABLES = b
-                .define("affect_vanilla_loot", false);
-        AFFECT_AGE_OF_EXILE_LOOT = b
-                .define("affect_age_of_exile_loot", true);
-        AFFECT_AGE_OF_EXILE_EXP = b
-                .define("affect_age_of_exile_exp", true);
+        ENABLE_ANTI_MOB_FARM = b.define("enable_anti_mob_farm", true);
+        USE_DEATH_LOCATION = b
+                .comment("If enabled, the chunk that will get penalty will be the one where the mob died, instead of the one where the mob was spawned in")
+                .define("USE_DEATH_LOCATION", false);
+        AFFECT_PEACEFUL_ANIMALS = b.define("affect_animals", false);
+        AFFECT_VANILLA_LOOT_TABLES = b.define("affect_vanilla_loot", false);
+        AFFECT_AGE_OF_EXILE_LOOT = b.define("affect_age_of_exile_loot", true);
+        AFFECT_AGE_OF_EXILE_EXP = b.define("affect_age_of_exile_exp", true);
+        AFFECT_VANILLA_EXP_DROPS = b.define("affect_vanilla_exp_drops", false);
 
-        MIN_PLAYER_DMG_TO_GET_LOOT = b
+        MIN_PLAYER_DMG_TO_GET_LOOT = b.comment("0.5 means Player has to do 50% of the mob's total HP in damage to get loot. This counts any player damage, even multiple players")
                 .defineInRange("min_player_dmg_for_loot", 0.5D, 0D, 1D);
 
-        ON_MOB_KILLED_DECREASE_BY = b
+        ON_MOB_KILLED_DECREASE_BY = b.comment("Every time you kill a mob, the chunk drop chance (originally 1), gets reduced by this amount")
                 .defineInRange("mob_kill_chunk_penalty", 0.02D, 0D, 1D);
-        ON_MINUTE_PASSED_INCREASE_BY = b
-                .defineInRange("penalty_regen_per_minute", 0.05D, 0D, 1D);
-        FREE_MOB_KILLS_BEFORE_PENALTY_STARTS = b
-                .defineInRange("one_time_free_kills_per_chunk", 15, 0, 1000);
-        ADD_FREE_KILLS_ON_CHEST_LOOT = b
-                .defineInRange("added_free_kills_on_chest_looted", 5, 0, 1000);
+        ON_MINUTE_PASSED_INCREASE_BY = b.comment("How much the chunk penalty regenerates passively per minute.")
+                .defineInRange("penalty_regen_per_minute", 0.02D, 0D, 1D);
+        FREE_MOB_KILLS_BEFORE_PENALTY_STARTS = b.comment("Free kills are kills in a chunk that don't trigger the penalty.")
+                .defineInRange("one_time_free_kills_per_chunk", 30, 0, 1000);
+        ADD_FREE_KILLS_ON_CHEST_LOOT = b.comment("Looting Chests will add this many free kills")
+                .defineInRange("added_free_kills_on_chest_looted", 10, 0, 1000);
 
-        GATEWAYS_MOB_CHANCE_TO_NOT_PROC_PENALTY = b.defineInRange("GATEWAYS_MOB_CHANCE_TO_NOT_PROC_PENALTY", 75, 0D, 100D);
-
+        GATEWAYS_MOB_CHANCE_TO_NOT_PROC_PENALTY = b.comment("Gateway mod specific compatibility, relaxes the penalty for them.")
+                .defineInRange("GATEWAYS_MOB_CHANCE_TO_NOT_PROC_PENALTY", 75, 0D, 100D);
 
         List<String> dim = new ArrayList<>();
         dim.add("mmorpg:dungeon");
 
-        DIMENSIONS_EXCLUDED = b
-                .defineList("excluded_dimensions", dim, x -> true);
-        ENTITIES_EXCLUDED = b
-                .defineList("excluded_entities", new ArrayList<>(), x -> true);
+        DIMENSIONS_EXCLUDED = b.defineList("excluded_dimensions", dim, x -> true);
+        ENTITIES_EXCLUDED = b.defineList("excluded_entities", new ArrayList<>(), x -> true);
 
         b.pop();
     }
@@ -71,6 +68,7 @@ public class CheeseConfig {
     public ForgeConfigSpec.ConfigValue<? extends List> ENTITIES_EXCLUDED;
 
     public ForgeConfigSpec.BooleanValue ENABLE_ANTI_MOB_FARM;
+    public ForgeConfigSpec.BooleanValue USE_DEATH_LOCATION;
 
     public ForgeConfigSpec.DoubleValue ON_MOB_KILLED_DECREASE_BY;
     public ForgeConfigSpec.DoubleValue ON_MINUTE_PASSED_INCREASE_BY;
@@ -83,6 +81,7 @@ public class CheeseConfig {
     public ForgeConfigSpec.BooleanValue AFFECT_PEACEFUL_ANIMALS;
 
     private ForgeConfigSpec.BooleanValue AFFECT_VANILLA_LOOT_TABLES;
+    private ForgeConfigSpec.BooleanValue AFFECT_VANILLA_EXP_DROPS;
     private ForgeConfigSpec.BooleanValue AFFECT_AGE_OF_EXILE_LOOT;
     private ForgeConfigSpec.BooleanValue AFFECT_AGE_OF_EXILE_EXP;
 
@@ -98,6 +97,9 @@ public class CheeseConfig {
         }
         if (action == ModAction.VANILLA_LOOT) {
             return AFFECT_VANILLA_LOOT_TABLES.get();
+        }
+        if (action == ModAction.VANILLA_EXP) {
+            return AFFECT_VANILLA_EXP_DROPS.get();
         }
 
         System.out.print("No enum: " + action.name());
