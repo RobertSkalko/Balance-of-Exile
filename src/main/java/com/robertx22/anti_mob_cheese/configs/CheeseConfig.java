@@ -36,6 +36,8 @@ public class CheeseConfig {
         AFFECT_AGE_OF_EXILE_EXP = b.define("affect_age_of_exile_exp", true);
         AFFECT_VANILLA_EXP_DROPS = b.define("affect_vanilla_exp_drops", false);
 
+        ONLY_AFFECT_MOBS_KILLED_BY_PLAYER = b.define("ONLY_AFFECT_MOBS_KILLED_BY_PLAYER", true);
+
         MIN_PLAYER_DMG_TO_GET_LOOT = b.comment("0.5 means Player has to do 50% of the mob's total HP in damage to get loot. This counts any player damage, even multiple players")
                 .defineInRange("min_player_dmg_for_loot", 0.5D, 0D, 1D);
 
@@ -84,6 +86,8 @@ public class CheeseConfig {
     private ForgeConfigSpec.BooleanValue AFFECT_VANILLA_EXP_DROPS;
     private ForgeConfigSpec.BooleanValue AFFECT_AGE_OF_EXILE_LOOT;
     private ForgeConfigSpec.BooleanValue AFFECT_AGE_OF_EXILE_EXP;
+
+    public ForgeConfigSpec.BooleanValue ONLY_AFFECT_MOBS_KILLED_BY_PLAYER;
 
     public ForgeConfigSpec.DoubleValue MIN_PLAYER_DMG_TO_GET_LOOT;
 

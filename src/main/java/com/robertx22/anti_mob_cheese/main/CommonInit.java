@@ -1,12 +1,17 @@
 package com.robertx22.anti_mob_cheese.main;
 
-import com.robertx22.anti_mob_cheese.anti_mob_farm.*;
+import com.robertx22.anti_mob_cheese.anti_mob_farm.AntiMobFarmCap;
+import com.robertx22.anti_mob_cheese.anti_mob_farm.ChunkCap;
+import com.robertx22.anti_mob_cheese.anti_mob_farm.TestCommand;
+import com.robertx22.anti_mob_cheese.anti_mob_farm.WorldTickMinute;
 import com.robertx22.anti_mob_cheese.configs.CheeseConfig;
 import com.robertx22.anti_mob_cheese.mixin_methods.OnDropLoot;
+import com.robertx22.library_of_exile.components.EntityInfoComponent;
 import com.robertx22.library_of_exile.events.base.EventConsumer;
 import com.robertx22.library_of_exile.events.base.ExileEvents;
 import com.robertx22.library_of_exile.main.ApiForgeEvents;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -16,6 +21,7 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -70,7 +76,24 @@ public class CommonInit {
 
         });
 
-        ExileEvents.MOB_DEATH.register(new OnMobDeath());
+        ApiForgeEvents.registerForgeEvent(LivingDeathEvent.class, event -> {
+            try {
+                if (event.getEntity() instanceof Player == false) {
+                    if (!event.getEntity().level().isClientSide) {
+                        var mob = event.getEntity();
+                        if (CheeseConfig.get().entityCounts(mob)) {
+                            Entity killer = EntityInfoComponent.get(mob).getDamageStats().getHighestDamager((ServerLevel) mob.level());
+                            if (killer instanceof Player || !CheeseConfig.get().ONLY_AFFECT_MOBS_KILLED_BY_PLAYER.get()) {
+                                AntiMobFarmCap.get(mob.level()).onValidMobDeathByPlayer(mob);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
 
         ExileEvents.ON_CHEST_LOOTED.register(new EventConsumer<ExileEvents.OnChestLooted>() {
             @Override
