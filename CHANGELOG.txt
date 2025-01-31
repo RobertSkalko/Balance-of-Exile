@@ -1,2 +1,2 @@
-v.1.3.9
-- added option to use penalty even for mobs killed by non players: ONLY_AFFECT_MOBS_KILLED_BY_PLAYER
+v.1.3.10
+- blacklisting a mob now makes it also not be affected by penalty

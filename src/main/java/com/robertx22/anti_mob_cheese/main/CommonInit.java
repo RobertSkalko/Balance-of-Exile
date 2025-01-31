@@ -127,22 +127,19 @@ public class CommonInit {
         ExileEvents.SETUP_LOOT_CHANCE.register(new EventConsumer<ExileEvents.OnSetupLootChance>() {
             @Override
             public void accept(ExileEvents.OnSetupLootChance event) {
-                if (CheeseConfig.get()
-                        .affects(ModAction.AOE_LOOT)) {
+                if (CheeseConfig.get().affects(ModAction.AOE_LOOT)) {
 
                     if (event.mobKilled != null) {
 
-                        if (!CheeseConfig.get()
-                                .playerDidEnoughDamageTo(event.mobKilled, ModAction.AOE_LOOT)) {
+                        if (!CheeseConfig.get().playerDidEnoughDamageTo(event.mobKilled, ModAction.AOE_LOOT)) {
                             event.lootChance = 0;
                         }
 
                         if (CheeseConfig.get().ENABLE_ANTI_MOB_FARM.get()) {
-                            if (CheeseConfig.get()
-                                    .affects(ModAction.AOE_LOOT)) {
-                                float multi = AntiMobFarmCap.get(event.mobKilled.level())
-                                        .getDropMultiForMob(event.mobKilled);
+                            if (CheeseConfig.get().affects(ModAction.AOE_LOOT)) {
+                                float multi = AntiMobFarmCap.get(event.mobKilled.level()).getDropMultiForMob(event.mobKilled);
                                 event.lootChance *= multi;
+                                
                             }
                         }
 

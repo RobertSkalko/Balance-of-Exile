@@ -1,5 +1,6 @@
 package com.robertx22.anti_mob_cheese.anti_mob_farm;
 
+import com.robertx22.anti_mob_cheese.configs.CheeseConfig;
 import com.robertx22.anti_mob_cheese.main.AMC;
 import com.robertx22.library_of_exile.components.ICap;
 import com.robertx22.library_of_exile.utils.LoadSave;
@@ -24,7 +25,7 @@ public class AntiMobFarmCap implements ICap {
 
     transient final LazyOptional<AntiMobFarmCap> supp = LazyOptional.of(() -> this);
 
-    
+
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == INSTANCE) {
@@ -73,6 +74,9 @@ public class AntiMobFarmCap implements ICap {
     }
 
     public float getDropMultiForMob(LivingEntity en) {
+        if (!CheeseConfig.get().entityCounts(en)) {
+            return 1;
+        }
         return this.data.getDropMultiForMob(en);
     }
 
