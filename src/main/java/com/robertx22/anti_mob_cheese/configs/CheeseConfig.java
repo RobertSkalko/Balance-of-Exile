@@ -2,6 +2,7 @@ package com.robertx22.anti_mob_cheese.configs;
 
 import com.robertx22.anti_mob_cheese.main.ModAction;
 import com.robertx22.library_of_exile.components.EntityInfoComponent;
+import com.robertx22.library_of_exile.dimension.MapDimensions;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -52,6 +53,7 @@ public class CheeseConfig {
 
         GATEWAYS_MOB_CHANCE_TO_NOT_PROC_PENALTY = b.comment("Gateway mod specific compatibility, relaxes the penalty for them.")
                 .defineInRange("GATEWAYS_MOB_CHANCE_TO_NOT_PROC_PENALTY", 75, 0D, 100D);
+
 
         List<String> dim = new ArrayList<>();
         dim.add("mmorpg:dungeon");
@@ -137,6 +139,10 @@ public class CheeseConfig {
     }
 
     public boolean isDimensionExcluded(Level world) {
+        // maybe make this a tag later, but for now it works
+        if (MapDimensions.isMap(world)) {
+            return true;
+        }
         String dimId = world.dimension()
                 .location()
                 .toString();
